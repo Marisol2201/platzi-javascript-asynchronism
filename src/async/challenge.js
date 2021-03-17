@@ -1,0 +1,24 @@
+const fetchData = require('../utils/fetchData');
+//si un valor nunca va a cambiar su nombre se pone en mayus
+API = 'https://rickandmortyapi.com/api/character/'
+
+const anotherFunction = async (url_api) => {
+    try {
+        //espera a que la petición se cumpla y una vez ocurra se carga en memoria
+        const data = await fetchData(url_api)
+        //nuevo llamado que también espera a que resuelva...
+        const character = await fetchData(`${API}${data.results[0].id}`);
+        const origin = await fetchData(character.origin.url);
+
+        console.log(data.info.count);
+        console.log(character.name);
+        console.log(origin.dimension);
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+console.log('Before');
+anotherFunction(API);
+console.log('After');
